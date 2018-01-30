@@ -3,6 +3,7 @@ package com.recollect.domain;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.util.List;
 
 @Entity
@@ -20,19 +21,23 @@ public class User {
 
     private String languageCode;
 
+    @OneToOne
+    private Chat chat;
+
     @OneToMany(mappedBy = "user")
     private List<Note> notes;
 
     public User() {
     }
 
-    public User(Long id, String firstName, Boolean isBot, String lastName, String userName, String languageCode) {
+    public User(Long id, String firstName, Boolean isBot, String lastName, String userName, String languageCode, Chat chat) {
         this.id = id;
         this.firstName = firstName;
         this.isBot = isBot;
         this.lastName = lastName;
         this.userName = userName;
         this.languageCode = languageCode;
+        this.chat = chat;
     }
 
     public Long getId() {
@@ -81,6 +86,14 @@ public class User {
 
     public void setLanguageCode(String languageCode) {
         this.languageCode = languageCode;
+    }
+
+    public Chat getChat() {
+        return chat;
+    }
+
+    public void setChat(Chat chat) {
+        this.chat = chat;
     }
 
     public List<Note> getNotes() {
