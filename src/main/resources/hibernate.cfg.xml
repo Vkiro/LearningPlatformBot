@@ -14,5 +14,6 @@
 
         <mapping class="com.recollect.domain.User"/>
         <mapping class="com.recollect.domain.Note"/>
+        <mapping class="com.recollect.domain.Chat"/>
     </session-factory>
 </hibernate-configuration>
