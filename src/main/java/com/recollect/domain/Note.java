@@ -9,9 +9,12 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Lob
     private String text;
 
     private Date date;
+
+    private Boolean isSent = false;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -42,19 +45,27 @@ public class Note {
         this.text = text;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public Date getDate() {
         return date;
     }
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Boolean getSent() {
+        return isSent;
+    }
+
+    public void setSent(Boolean sent) {
+        isSent = sent;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
