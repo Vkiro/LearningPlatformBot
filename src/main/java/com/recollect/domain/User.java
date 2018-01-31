@@ -21,23 +21,31 @@ public class User {
 
     private String languageCode;
 
-    @OneToOne
-    private Chat chat;
-
-    @OneToMany(mappedBy = "user")
-    private List<Note> notes;
-
     public User() {
     }
 
-    public User(Long id, String firstName, Boolean isBot, String lastName, String userName, String languageCode, Chat chat) {
-        this.id = id;
-        this.firstName = firstName;
-        this.isBot = isBot;
-        this.lastName = lastName;
-        this.userName = userName;
-        this.languageCode = languageCode;
-        this.chat = chat;
+    public User(org.telegram.telegrambots.api.objects.User user) {
+        this.id = new Long(user.getId());
+        this.firstName = user.getFirstName();
+        this.isBot = user.getBot();
+        this.lastName = user.getLastName();
+        this.userName = user.getUserName();
+        this.languageCode = user.getLanguageCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return id.equals(user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 
     public Long getId() {
@@ -86,21 +94,5 @@ public class User {
 
     public void setLanguageCode(String languageCode) {
         this.languageCode = languageCode;
-    }
-
-    public Chat getChat() {
-        return chat;
-    }
-
-    public void setChat(Chat chat) {
-        this.chat = chat;
-    }
-
-    public List<Note> getNotes() {
-        return notes;
-    }
-
-    public void setNotes(List<Note> notes) {
-        this.notes = notes;
     }
 }

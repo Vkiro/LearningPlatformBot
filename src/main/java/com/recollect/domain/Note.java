@@ -17,16 +17,16 @@ public class Note {
     private Boolean isSent = false;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "chat_id")
+    private Chat chat;
 
     public Note() {
     }
 
-    public Note(String text, Date date, User user) {
+    public Note(String text, Date date, Chat chat) {
         this.text = text;
         this.date = date;
-        this.user = user;
+        this.chat = chat;
     }
 
     public Long getId() {
@@ -61,11 +61,11 @@ public class Note {
         isSent = sent;
     }
 
-    public User getUser() {
-        return user;
+    public Chat getChat() {
+        return chat;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setChat(Chat chat) {
+        this.chat = chat;
     }
 }
