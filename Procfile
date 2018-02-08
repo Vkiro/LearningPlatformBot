@@ -1,1 +1,1 @@
-worker: java -cp target/classes/:target/dependency/* com.recollect.RecollectBot
+worker: sh target/bin/recollectBot
