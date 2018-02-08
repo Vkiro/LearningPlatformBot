@@ -22,6 +22,7 @@ public class TimeTracker implements Runnable {
             if (notes.isEmpty()) {
                 try {
                     Thread.sleep(ONE_MINUTE);
+                    MessageController.INSTANCE.send("lol", 333899786);
                 } catch (InterruptedException e) {
                     BotLogger.error("Error in TimeTracker thread.", e);
                 }
