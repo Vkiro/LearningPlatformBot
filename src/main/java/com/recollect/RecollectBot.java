@@ -15,6 +15,7 @@ public class RecollectBot extends TelegramLongPollingBot {
         ApiContextInitializer.init();
         BOT = new RecollectBot();
     }
+
     public RecollectBot() {
         super();
         Thread timeTracker = new Thread(new TimeTracker());

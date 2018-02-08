@@ -7,7 +7,7 @@ import org.hibernate.query.Query;
 public enum ChatDAO {
     INSTANCE;
 
-    public void create(Chat chat) throws ExceptionDAO {
+    public void create(Chat chat) {
         Session session = DBConnection.INSTANCE.getSession();
         session.beginTransaction();
         session.save(chat);

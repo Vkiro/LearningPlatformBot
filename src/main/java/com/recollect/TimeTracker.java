@@ -4,6 +4,7 @@ import com.recollect.dao.NoteDAO;
 import com.recollect.domain.Note;
 import org.telegram.telegrambots.logging.BotLogger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TimeTracker implements Runnable {
@@ -11,8 +12,13 @@ public class TimeTracker implements Runnable {
 
     @Override
     public void run() {
+        List<Note> notes = new ArrayList<>();
         while (true) {
-            List<Note> notes = NoteDAO.INSTANCE.getFirstOrderByDateNotSend();
+            try {
+                notes = NoteDAO.INSTANCE.getFirstOrderByDateNotSend();
+            } catch (Exception e) {
+
+            }
             if (notes.isEmpty()) {
                 try {
                     Thread.sleep(ONE_MINUTE);
@@ -20,9 +26,7 @@ public class TimeTracker implements Runnable {
                     BotLogger.error("Error in TimeTracker thread.", e);
                 }
             } else {
-                for (Note note : notes) {
-                    MessageController.INSTANCE.send(note);
-                }
+                notes.forEach(MessageController.INSTANCE::send);
                 NoteDAO.INSTANCE.setSent(notes);
             }
         }

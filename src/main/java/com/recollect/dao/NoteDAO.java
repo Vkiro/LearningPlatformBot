@@ -4,6 +4,7 @@ import com.recollect.domain.Note;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import java.time.LocalTime;
 import java.time.MonthDay;
 import java.time.Year;
 import java.time.YearMonth;
@@ -21,21 +22,27 @@ public enum NoteDAO {
         return notes;
     }
 
-    public List<Note> getFirstOrderByDateNotSend() {
+    public List<Note> getFirstOrderByDateNotSend() throws Exception {
         int thisYear = Year.now().getValue();
         int thisMonth = YearMonth.now().getMonthValue();
         int thisDay = MonthDay.now().getDayOfMonth();
+        int thisHour = LocalTime.now().getHour();
+        int thisMinute = LocalTime.now().getMinute();
         Session session = DBConnection.INSTANCE.getSession();
         //TODO CHANGE concat and logic
         Query query = session.createQuery("from Note where " +
                 "year(date) =:thisYear AND " +
                 "month(date) =:thisMonth AND " +
                 "day(date) =:thisDay AND " +
+                "hour(date) =:thisHour AND " +
+                "minute(date) =:thisMinute AND " +
                 "isSent = false " +
                 "order by date");
         query.setParameter("thisYear", thisYear);
         query.setParameter("thisMonth", thisMonth);
         query.setParameter("thisDay", thisDay);
+        query.setParameter("thisHour", thisHour);
+        query.setParameter("thisMinute", thisMinute);
         List<Note> notes = query.getResultList();
 
         return notes;
