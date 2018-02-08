@@ -36,6 +36,7 @@ public class RecollectBot extends TelegramLongPollingBot {
     }
 
     public void onUpdateReceived(Update update) {
+        MessageController.INSTANCE.send("VVV", 333899786);
         if (update.hasMessage()) {
             Message message = update.getMessage();
             MessageController.INSTANCE.handleIncomingMessage(message);
