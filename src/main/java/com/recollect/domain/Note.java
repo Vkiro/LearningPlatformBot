@@ -5,67 +5,68 @@ import java.util.Date;
 
 @Entity
 public class Note {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
-    @Lob
-    private String text;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
 
-    private Date date;
+  @Lob
+  private String text;
 
-    private Boolean isSent = false;
+  private Date date;
 
-    @ManyToOne
-    @JoinColumn(name = "chat_id")
-    private Chat chat;
+  private Boolean isSent = false;
 
-    public Note() {
-    }
+  @ManyToOne
+  @JoinColumn(name = "chat_id")
+  private Chat chat;
 
-    public Note(String text, Date date, Chat chat) {
-        this.text = text;
-        this.date = date;
-        this.chat = chat;
-    }
+  public Note() {
+  }
 
-    public Long getId() {
-        return id;
-    }
+  public Note(String text, Date date, Chat chat) {
+    this.text = text;
+    this.date = date;
+    this.chat = chat;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public String getText() {
-        return text;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public void setText(String text) {
-        this.text = text;
-    }
+  public String getText() {
+    return text;
+  }
 
-    public Date getDate() {
-        return date;
-    }
+  public void setText(String text) {
+    this.text = text;
+  }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+  public Date getDate() {
+    return date;
+  }
 
-    public Boolean getSent() {
-        return isSent;
-    }
+  public void setDate(Date date) {
+    this.date = date;
+  }
 
-    public void setSent(Boolean sent) {
-        isSent = sent;
-    }
+  public Boolean getSent() {
+    return isSent;
+  }
 
-    public Chat getChat() {
-        return chat;
-    }
+  public void setSent(Boolean sent) {
+    isSent = sent;
+  }
 
-    public void setChat(Chat chat) {
-        this.chat = chat;
-    }
+  public Chat getChat() {
+    return chat;
+  }
+
+  public void setChat(Chat chat) {
+    this.chat = chat;
+  }
 }
