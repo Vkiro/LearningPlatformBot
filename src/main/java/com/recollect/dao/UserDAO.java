@@ -4,13 +4,11 @@ import com.recollect.domain.User;
 import org.hibernate.Session;
 
 public enum UserDAO {
-    INSTANCE;
+  INSTANCE;
 
-    public void create(User user) throws ExceptionDAO {
-        Session session = DBConnection.INSTANCE.getSession();
-        session.beginTransaction();
-        session.save(user);
-        session.getTransaction().commit();
-        session.close();
-    }
+  public void create(User user) throws ExceptionDAO {
+    Session session = DBConnection.INSTANCE.openTransactionSession();
+    session.save(user);
+    DBConnection.INSTANCE.closeTransactionSession(session);
+  }
 }

@@ -2,27 +2,20 @@ package com.recollect.dao;
 
 import com.recollect.domain.Chat;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
 
 public enum ChatDAO {
-    INSTANCE;
+  INSTANCE;
 
-    public void create(Chat chat) {
-        Session session = DBConnection.INSTANCE.getSession();
-        session.beginTransaction();
-        session.save(chat);
-        session.getTransaction().commit();
-        session.close();
-    }
+  public void create(Chat chat) {
+    Session session = DBConnection.INSTANCE.openTransactionSession();
+    session.save(chat);
+    DBConnection.INSTANCE.closeTransactionSession(session);
+  }
 
-    public Chat getById(Long chatId) {
-        Session session = DBConnection.INSTANCE.getSession();
-        session.beginTransaction();
-        Query query = session.createQuery("from Chat where id = " + chatId);
-        Chat chat = (Chat) query.getSingleResult();
-        session.getTransaction().commit();
-        session.close();
-
-        return chat;
-    }
+  public Chat getById(Long chatId) {
+    Session session = DBConnection.INSTANCE.openSession();
+    Chat chat = session.get(Chat.class, chatId);
+    DBConnection.INSTANCE.closeSession(session);
+    return chat;
+  }
 }
