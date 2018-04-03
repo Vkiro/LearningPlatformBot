@@ -5,6 +5,7 @@ import com.recollect.dao.ExceptionDAO;
 import com.recollect.dao.NoteDAO;
 import com.recollect.domain.Note;
 import com.recollect.service.NoteService;
+import java.util.ArrayList;
 import java.util.List;
 import org.telegram.telegrambots.logging.BotLogger;
 
@@ -14,19 +15,22 @@ public class TimeController implements Runnable {
 
   @Override
   public void run() {
+    List<Note> notes = new ArrayList<>();
     while (true) {
       try {
-        List<Note> notes = NoteDAO.INSTANCE.getFirstOrderByDateNotSend();
-        if (notes.isEmpty()) {
+        notes = NoteDAO.INSTANCE.getFirstOrderByDateNotSend();
+      } catch (Exception e) {
+
+      }
+      if (notes.isEmpty()) {
+        try {
           Thread.sleep(ONE_MINUTE);
-        } else {
-          notes.forEach(MessageController.INSTANCE::send);
-          NoteService.INSTANCE.setSend(notes);
+        } catch (InterruptedException e) {
+          BotLogger.error("Error in TimeTracker thread.", e);
         }
-      } catch (ExceptionDAO edao) {
-        BotLogger.error("TimeController error getting notes from DB.", edao);
-      } catch (InterruptedException ie) {
-        BotLogger.error("TimeController error with thread.", ie);
+      } else {
+        notes.forEach(MessageController.INSTANCE::send);
+        NoteService.INSTANCE.setSend(notes);
       }
     }
   }

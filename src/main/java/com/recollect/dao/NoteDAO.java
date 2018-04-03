@@ -18,9 +18,8 @@ public enum NoteDAO {
     int thisMonth = YearMonth.now().getMonthValue();
     int thisDay = MonthDay.now().getDayOfMonth();
     int thisHour = LocalTime.now().getHour();
-    BotLogger.config(""+thisHour, "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
     int thisMinute = LocalTime.now().getMinute();
-    Session session = DBConnection.INSTANCE.openSession();
+    Session session = DBConnection.INSTANCE.openTransactionSession();
     Query query = session.createQuery("" +
         "FROM Note " +
         "WHERE " +
@@ -36,8 +35,10 @@ public enum NoteDAO {
     query.setParameter("thisDay", thisDay);
     query.setParameter("thisHour", thisHour);
     query.setParameter("thisMinute", thisMinute);
+    List<Note> notes = (List<Note>) query.getResultList();
 
-    return (List<Note>) query.getResultList();
+    DBConnection.INSTANCE.closeTransactionSession(session);
+    return notes;
   }
 
   public void create(Note note) throws ExceptionDAO {

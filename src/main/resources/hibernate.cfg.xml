@@ -6,7 +6,7 @@
     <session-factory>
         <!-- DB connection -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://us-cdbr-iron-east-05.cleardb.net/heroku_c769909265655ba?useSSL=false</property>
+        <property name="connection.url">jdbc:mysql://us-cdbr-iron-east-05.cleardb.net/heroku_c769909265655ba?autoReconnect=true</property>
         <property name="connection.username">b6337687f25bdc</property>
         <property name="connection.password">b043b04a</property>
         <property name="dialect">org.hibernate.dialect.MySQL55Dialect</property>

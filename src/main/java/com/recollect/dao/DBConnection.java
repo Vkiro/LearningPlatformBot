@@ -15,6 +15,7 @@ public enum DBConnection {
   }
 
   public Session openTransactionSession() {
+    System.out.println("OPEN!!!!");
     Session session = sessionFactory.openSession();
     session.beginTransaction();
     return session;
@@ -27,5 +28,6 @@ public enum DBConnection {
   public void closeTransactionSession(Session session) {
     session.getTransaction().commit();
     session.close();
+    System.out.println("CLOSE!!!!");
   }
 }
