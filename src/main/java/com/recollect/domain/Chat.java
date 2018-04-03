@@ -1,43 +1,27 @@
 package com.recollect.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import java.util.List;
-
-@Entity
 public class Chat {
-    @Id
-    private Long id;
 
-    @OneToOne
-    private User user;
+  private Long id;
 
-    @OneToMany(mappedBy = "chat")
-    private List<Note> notes;
+  private Long userId;
 
-    public Long getId() {
-        return id;
-    }
+  public Chat() {
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public User getUser() {
-        return user;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+  public Long getUserId() {
+    return userId;
+  }
 
-    public List<Note> getNotes() {
-        return notes;
-    }
-
-    public void setNotes(List<Note> notes) {
-        this.notes = notes;
-    }
+  public void setUserId(Long userId) {
+    this.userId = userId;
+  }
 }

@@ -1,33 +1,35 @@
 package com.recollect.domain;
 
-import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
 
-@Entity
 public class Note {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @Lob
   private String text;
 
-  private Date date;
+  private Timestamp date;
 
   private Boolean isSent = false;
 
-  @ManyToOne
-  @JoinColumn(name = "chat_id")
-  private Chat chat;
+  private Long chatId;
 
   public Note() {
   }
 
-  public Note(String text, Date date, Chat chat) {
+  public Note(Long id, String text, Timestamp date, Boolean isSent, Long chatId) {
+    this.id = id;
     this.text = text;
     this.date = date;
-    this.chat = chat;
+    this.isSent = isSent;
+    this.chatId = chatId;
+  }
+
+  public Note(String noteText, java.util.Date date, Chat chat) {
+    this.text = noteText;
+    this.date = new Timestamp(date.getTime());
+    this.chatId = chat.getId();
   }
 
   public Long getId() {
@@ -46,11 +48,11 @@ public class Note {
     this.text = text;
   }
 
-  public Date getDate() {
+  public Timestamp getDate() {
     return date;
   }
 
-  public void setDate(Date date) {
+  public void setDate(Timestamp date) {
     this.date = date;
   }
 
@@ -62,11 +64,11 @@ public class Note {
     isSent = sent;
   }
 
-  public Chat getChat() {
-    return chat;
+  public Long getChatId() {
+    return chatId;
   }
 
-  public void setChat(Chat chat) {
-    this.chat = chat;
+  public void setChatId(Long chatId) {
+    this.chatId = chatId;
   }
 }

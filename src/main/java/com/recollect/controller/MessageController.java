@@ -61,7 +61,7 @@ public enum MessageController {
 
   public void send(Note note) {
     SendMessage message = new SendMessage();
-    message.setChatId(note.getChat().getId());
+    message.setChatId(note.getChatId());
     message.setText(note.getText());
     try {
       RecollectBot.BOT.execute(message);

@@ -18,7 +18,7 @@ public enum Start implements Command {
     User user = new User(message.getFrom());
     Chat chat = new Chat();
     chat.setId(message.getChatId());
-    chat.setUser(user);
+    chat.setUserId(user.getId());
     try {
       UserDAO.INSTANCE.create(user);
       ChatDAO.INSTANCE.create(chat);

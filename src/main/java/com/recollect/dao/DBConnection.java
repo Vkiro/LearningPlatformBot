@@ -1,33 +1,18 @@
 package com.recollect.dao;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public enum DBConnection {
   INSTANCE;
 
-  private Configuration configuration = new Configuration().configure();
-  private SessionFactory sessionFactory = configuration.buildSessionFactory();
+  public static final String URL = "jdbc:mysql://us-cdbr-iron-east-05.cleardb.net/heroku_c769909265655ba?autoReconnect=true&useSSL=false";
+  private static final String LOGIN = "b6337687f25bdc";
+  private static final String PASSWORD = "b043b04a";
 
-  public Session openSession() {
-    return sessionFactory.openSession();
-  }
-
-  public Session openTransactionSession() {
-    System.out.println("OPEN!!!!");
-    Session session = sessionFactory.openSession();
-    session.beginTransaction();
-    return session;
-  }
-
-  public void closeSession(Session session) {
-    session.close();
-  }
-
-  public void closeTransactionSession(Session session) {
-    session.getTransaction().commit();
-    session.close();
-    System.out.println("CLOSE!!!!");
+  public Connection getConnection() throws ClassNotFoundException, SQLException {
+    Class.forName("com.mysql.jdbc.Driver");
+    return DriverManager.getConnection(URL, LOGIN, PASSWORD);
   }
 }
