@@ -19,7 +19,7 @@ public enum NoteDAO {
     int thisYear = Year.now().getValue();
     int thisMonth = YearMonth.now().getMonthValue();
     int thisDay = MonthDay.now().getDayOfMonth();
-    int thisHour = LocalTime.now().getHour() + 3; // TODO FIX TIMEZONE BUG
+    int thisHour = LocalTime.now().getHour();
     int thisMinute = LocalTime.now().getMinute();
     String query = "SELECT id, date, isSent, text, chatId FROM Note "
         + "WHERE "
