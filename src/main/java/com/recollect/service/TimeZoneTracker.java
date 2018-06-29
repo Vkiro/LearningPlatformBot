@@ -6,7 +6,7 @@ import java.util.Map;
 public class TimeZoneTracker {
 
   // TODO add more languageCodes and timezone hours
-  private static final Map<String, Integer> timeZone = new HashMap<>() {{
+  private static final Map<String, Integer> timeZone = new HashMap<String, Integer>() {{
     put("uk-UA", 3);
   }};
 
