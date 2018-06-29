@@ -1,13 +1,14 @@
 package com.recollect.controller.commands;
 
-import com.recollect.dao.ChatDAO;
-import com.recollect.dao.ExceptionDAO;
-import com.recollect.dao.UserDAO;
-import com.recollect.domain.Chat;
-import com.recollect.domain.User;
+import com.recollect.service.ChatService;
+import com.recollect.service.UserService;
 import org.telegram.telegrambots.api.objects.Message;
-import org.telegram.telegrambots.logging.BotLogger;
 
+/**
+ * This command performs only when user just have joined to the RecollectBot.
+ * It creates new user and chat in the DB.
+ * If the user writes this command one more time, the application will log that he exists in the DB.
+ */
 public enum Start implements Command {
   INSTANCE;
 
@@ -15,15 +16,10 @@ public enum Start implements Command {
 
   @Override
   public void execute(Message message) {
-    User user = new User(message.getFrom());
-    Chat chat = new Chat();
-    chat.setId(message.getChatId());
-    chat.setUserId(user.getId());
-    try {
-      UserDAO.INSTANCE.create(user);
-      ChatDAO.INSTANCE.create(chat);
-    } catch (ExceptionDAO edao) {
-      BotLogger.info("This user or chat is already exists.", edao);
-    }
+    org.telegram.telegrambots.api.objects.User telegramUser = message.getFrom();
+    UserService.INSTANCE.createUser(telegramUser);
+    long chatId = message.getChatId();
+    long userId = telegramUser.getId();
+    ChatService.INSTANCE.createChat(chatId, userId);
   }
 }
