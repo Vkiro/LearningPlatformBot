@@ -1,6 +1,5 @@
 package com.recollect.domain;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Note {
@@ -71,4 +70,5 @@ public class Note {
   public void setChatId(Long chatId) {
     this.chatId = chatId;
   }
+
 }

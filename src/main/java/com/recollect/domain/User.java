@@ -18,7 +18,7 @@ public class User {
   }
 
   public User(org.telegram.telegrambots.api.objects.User user) {
-    this.id = new Long(user.getId());
+    this.id = Long.valueOf(user.getId());
     this.firstName = user.getFirstName();
     this.isBot = user.getBot();
     this.lastName = user.getLastName();
