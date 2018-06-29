@@ -1,7 +1,7 @@
 package com.recollect;
 
 import com.recollect.controller.MessageController;
-import com.recollect.controller.TimeController;
+import com.recollect.service.TimeTracker;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.api.objects.Message;
@@ -21,7 +21,7 @@ public class RecollectBot extends TelegramLongPollingBot {
 
   public RecollectBot() {
     super();
-    Thread timeTracker = new Thread(new TimeController());
+    Thread timeTracker = new Thread(new TimeTracker());
     timeTracker.start();
   }
 
