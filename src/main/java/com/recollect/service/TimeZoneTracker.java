@@ -9,6 +9,8 @@ public class TimeZoneTracker {
   // TODO add more languageCodes and timezone hours
   private static final Map<String, Integer> timeZone = new HashMap<String, Integer>() {{
     put("uk-UA", UKRAINE_TIME_ZONE);
+    put("en-UA", UKRAINE_TIME_ZONE);
+    put("ru-UA", UKRAINE_TIME_ZONE);
   }};
 
   public static int getHours(String languageCode){
